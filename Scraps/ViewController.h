@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Dropbox/Dropbox.h>
+#import "AddScrapViewController.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, AddScrapViewDelegate>
 
 @end
