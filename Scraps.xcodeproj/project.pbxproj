@@ -13,7 +13,7 @@
 		D85C9EB317913372007EC0DF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D85C9EB117913372007EC0DF /* InfoPlist.strings */; };
 		D85C9EB517913372007EC0DF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D85C9EB417913372007EC0DF /* main.m */; };
 		D85C9EB917913372007EC0DF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D85C9EB817913372007EC0DF /* AppDelegate.m */; };
-		D85C9EBF17913372007EC0DF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D85C9EBE17913372007EC0DF /* ViewController.m */; };
+		D85C9EBF17913372007EC0DF /* ScrapsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D85C9EBE17913372007EC0DF /* ScrapsViewController.m */; };
 		D85C9EC117913372007EC0DF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D85C9EC017913372007EC0DF /* Images.xcassets */; };
 		D85C9EC817913372007EC0DF /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85C9EC717913372007EC0DF /* XCTest.framework */; };
 		D85C9EC917913372007EC0DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85C9EA817913372007EC0DF /* Foundation.framework */; };
@@ -50,8 +50,8 @@
 		D85C9EB617913372007EC0DF /* Scraps-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Scraps-Prefix.pch"; sourceTree = "<group>"; };
 		D85C9EB717913372007EC0DF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D85C9EB817913372007EC0DF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D85C9EBD17913372007EC0DF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		D85C9EBE17913372007EC0DF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		D85C9EBD17913372007EC0DF /* ScrapsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrapsViewController.h; sourceTree = "<group>"; };
+		D85C9EBE17913372007EC0DF /* ScrapsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrapsViewController.m; sourceTree = "<group>"; };
 		D85C9EC017913372007EC0DF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D85C9EC617913372007EC0DF /* ScrapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScrapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D85C9EC717913372007EC0DF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -139,8 +139,8 @@
 			children = (
 				D85C9EB717913372007EC0DF /* AppDelegate.h */,
 				D85C9EB817913372007EC0DF /* AppDelegate.m */,
-				D85C9EBD17913372007EC0DF /* ViewController.h */,
-				D85C9EBE17913372007EC0DF /* ViewController.m */,
+				D85C9EBD17913372007EC0DF /* ScrapsViewController.h */,
+				D85C9EBE17913372007EC0DF /* ScrapsViewController.m */,
 				D85C9EE917913CE9007EC0DF /* AddScrapViewController.h */,
 				D85C9EEA17913CE9007EC0DF /* AddScrapViewController.m */,
 				D85C9EC017913372007EC0DF /* Images.xcassets */,
@@ -275,7 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D85C9EEB17913CE9007EC0DF /* AddScrapViewController.m in Sources */,
-				D85C9EBF17913372007EC0DF /* ViewController.m in Sources */,
+				D85C9EBF17913372007EC0DF /* ScrapsViewController.m in Sources */,
 				D85C9EB917913372007EC0DF /* AppDelegate.m in Sources */,
 				D85C9EB517913372007EC0DF /* main.m in Sources */,
 			);

@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "ScrapsViewController.h"
 
 @implementation AppDelegate
 
@@ -19,7 +19,7 @@
   DBAccountManager *accountManager = [[DBAccountManager alloc] initWithAppKey:@"kmhsm1hf4ewgxv2" secret:@"3fpjzuojeoe9cjd"];
   [DBAccountManager setSharedManager:accountManager];
 
-  ViewController *viewController = [[ViewController alloc] init];
+  ScrapsViewController *viewController = [[ScrapsViewController alloc] init];
   UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
 
   [self.window setRootViewController:navController];
@@ -32,7 +32,6 @@
 {
   DBAccount *account = [[DBAccountManager sharedManager] handleOpenURL:url];
   if (account) {
-    NSLog(@"App linked successfully");
     return YES;
   }
   return NO;

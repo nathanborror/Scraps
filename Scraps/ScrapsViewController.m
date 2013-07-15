@@ -1,15 +1,16 @@
 //
-//  ViewController.m
+//  ScrapsViewController.m
 //  Scraps
 //
 //  Created by Nathan Borror on 7/13/13.
 //  Copyright (c) 2013 Nathan Borror. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "ScrapsViewController.h"
 #import "AddScrapViewController.h"
+#import "ScrapCell.h"
 
-@interface ViewController ()
+@interface ScrapsViewController ()
 
 @property (nonatomic, retain) DBAccount *account;
 @property (nonatomic, retain) DBDatastore *store;
@@ -19,14 +20,15 @@
 
 @end
 
-@implementation ViewController
+@implementation ScrapsViewController
 
 - (void)viewDidLoad
 {
   [super viewDidLoad];
 
-  [self setEdgesForExtendedLayout:UIExtendedEdgeNone];
   [self setTitle:@"Scraps"];
+  [self setEdgesForExtendedLayout:UIExtendedEdgeNone];
+  [self.view setBackgroundColor:[UIColor colorWithWhite:.9 alpha:1]];
 
   UIBarButtonItem *add = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)];
   [self.navigationItem setRightBarButtonItem:add];
@@ -34,7 +36,9 @@
   self.scrapsTable = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
   [self.scrapsTable setDelegate:self];
   [self.scrapsTable setDataSource:self];
-  [self.scrapsTable registerClass:[UITableViewCell class] forCellReuseIdentifier:@"ScrapCell"];
+  [self.scrapsTable registerClass:[ScrapCell class] forCellReuseIdentifier:@"ScrapCell"];
+  [self.scrapsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  [self.scrapsTable setBackgroundColor:[UIColor clearColor]];
   [self.view addSubview:self.scrapsTable];
 
   [self linkDropboxAccount];
@@ -52,9 +56,9 @@
 
 - (void)showScraps
 {
-  __weak ViewController *vc = self;
-
   self.store = [DBDatastore openDefaultStoreForAccount:_account error:nil];
+
+  __weak ScrapsViewController *vc = self;
   [self.store addObserver:self block:^{
     if (vc.store.status & DBDatastoreIncoming) {
       [vc.store sync:nil];
@@ -85,18 +89,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ScrapCell"];
+  ScrapCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ScrapCell"];
   DBRecord *result = [self.scraps objectAtIndex:indexPath.row];
   [cell.textLabel setText:result.fields[@"text"]];
   return cell;
 }
 
 #pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-
-}
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
