@@ -78,7 +78,7 @@ static const CGFloat kDividerHeight = .5;
 - (void)swipe:(UIGestureRecognizer *)recognizer
 {
   CGPoint current = [recognizer locationInView:self.superview];
-  
+
   if (recognizer.state == UIGestureRecognizerStateBegan) {
     beginSwipePosition = current;
   }
@@ -107,29 +107,28 @@ static const CGFloat kDividerHeight = .5;
   if (recognizer.state == UIGestureRecognizerStateEnded) {
     CGFloat xPosition = current.x - beginSwipePosition.x;
 
+    // Perform search
     if (xPosition > kSearchThreshold) {
-      // Perform search with cell contents
       NSString *urlString = [NSString stringWithFormat:@"http://www.google.com/search?q=%@", self.textLabel.text];
       urlString = [urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+
       if (xPosition > kFeelinLuckyThreshold) {
         urlString = [NSString stringWithFormat:@"%@+site:wikipedia.org", urlString];
       }
+
       [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
-    } else if (xPosition < kTrashThreshold) {
-      // Trash cell
-      [UIView animateWithDuration:.3 animations:^{
-        [self setFrame:CGRectOffset(self.bounds, -(CGRectGetWidth(self.bounds)), self.frame.origin.y)];
-        [self setAlpha:0];
-      } completion:^(BOOL finished) {
-        NSIndexPath *indexPath = [(UITableView *)self.superview indexPathForCell:self];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"TrashNotification" object:indexPath];
-      }];
-    } else {
-      // Return to resting place
-      [UIView animateWithDuration:.8 delay:0 usingSpringWithDamping:.6 initialSpringVelocity:.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [self setFrame:CGRectOffset(self.bounds, 0, self.frame.origin.y)];
-      } completion:nil];
     }
+
+    // Trash cell
+    if (xPosition < kTrashThreshold) {
+      NSIndexPath *indexPath = [(UITableView *)self.superview indexPathForCell:self];
+      [[NSNotificationCenter defaultCenter] postNotificationName:@"TrashNotification" object:indexPath];
+    }
+
+    // Return to resting place
+    [UIView animateWithDuration:.8 delay:0 usingSpringWithDamping:.6 initialSpringVelocity:.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+      [self setFrame:CGRectOffset(self.bounds, 0, self.frame.origin.y)];
+    } completion:nil];
   }
 }
 
