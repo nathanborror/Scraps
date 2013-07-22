@@ -7,10 +7,15 @@
 //
 
 #import "ScrapsViewController.h"
-#import "AddScrapViewController.h"
 #import "ScrapCell.h"
 
-@interface ScrapsViewController ()
+@interface ScrapsViewController () {
+  BOOL pullDownInProgress;
+  ScrapCell *placeholderCell;
+
+  UITextField *newInputText;
+  UIView *newInput;
+}
 
 @property (nonatomic, retain) DBAccount *account;
 @property (nonatomic, retain) DBDatastore *store;
@@ -22,16 +27,22 @@
 
 @implementation ScrapsViewController
 
+- (id)init
+{
+  if (self = [super init]) {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTrashNotification:) name:@"TrashNotification" object:nil];
+  }
+  return self;
+}
+
 - (void)viewDidLoad
 {
   [super viewDidLoad];
 
-  [self setTitle:@"Scraps"];
-  [self setEdgesForExtendedLayout:UIExtendedEdgeNone];
-  [self.view setBackgroundColor:[UIColor colorWithWhite:.9 alpha:1]];
+  [self.navigationController setNavigationBarHidden:YES];
 
-  UIBarButtonItem *add = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)];
-  [self.navigationItem setRightBarButtonItem:add];
+//  [self setEdgesForExtendedLayout:UIExtendedEdgeNone];
+  [self.view setBackgroundColor:[UIColor colorWithWhite:.85 alpha:1]];
 
   self.scrapsTable = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
   [self.scrapsTable setDelegate:self];
@@ -39,7 +50,19 @@
   [self.scrapsTable registerClass:[ScrapCell class] forCellReuseIdentifier:@"ScrapCell"];
   [self.scrapsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self.scrapsTable setBackgroundColor:[UIColor clearColor]];
+  [self.scrapsTable setRowHeight:50];
   [self.view addSubview:self.scrapsTable];
+
+  newInput = [[UIView alloc] initWithFrame:CGRectMake(0, 200, CGRectGetWidth(self.view.bounds), 50)];
+  [newInput setBackgroundColor:[UIColor whiteColor]];
+
+  newInputText = [[UITextField alloc] initWithFrame:CGRectMake(15, 10, CGRectGetWidth(newInput.bounds)-30, CGRectGetHeight(newInput.bounds)-20)];
+  [newInputText setPlaceholder:@"New Scrap"];
+  [newInputText setReturnKeyType:UIReturnKeyDefault];
+  [newInputText setDelegate:self];
+  [newInput addSubview:newInputText];
+
+  [self.scrapsTable setTableHeaderView:newInput];
 
   [self linkDropboxAccount];
 }
@@ -61,9 +84,7 @@
   __weak ScrapsViewController *vc = self;
   [self.store addObserver:self block:^{
     if (vc.store.status & DBDatastoreIncoming) {
-      [vc.store sync:nil];
-      vc.scraps = [vc.table query:nil error:nil];
-      [vc.scrapsTable reloadData];
+      [vc refresh];
     }
   }];
 
@@ -72,12 +93,23 @@
   [self.scrapsTable reloadData];
 }
 
-- (void)add
+- (void)refresh
 {
-  AddScrapViewController *viewController = [[AddScrapViewController alloc] init];
-  [viewController setDelegate:self];
-  UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-  [self presentViewController:navController animated:YES completion:nil];
+  [self.store sync:nil];
+  self.scraps = [self.table query:nil error:nil];
+  [self.scrapsTable reloadData];
+}
+
+- (void)receiveTrashNotification:(NSNotification *)notification
+{
+  NSIndexPath *indexPath = notification.object;
+
+  DBRecord *result = [self.scraps objectAtIndex:indexPath.row];
+  [result deleteRecord];
+  [self.store sync:nil];
+  self.scraps = [self.table query:nil error:nil];
+
+  [self.scrapsTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - UITableViewDataSource
@@ -95,29 +127,24 @@
   return cell;
 }
 
-#pragma mark - UITableViewDelegate
+#pragma mark - UIScrollViewDelegate
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-  if (editingStyle == UITableViewCellEditingStyleDelete) {
-    DBRecord *result = [self.scraps objectAtIndex:indexPath.row];
-    [result deleteRecord];
-    [self.store sync:nil];
-    self.scraps = [self.table query:nil error:nil];
-
-    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                     withRowAnimation:UITableViewRowAnimationAutomatic];
-  }
+  [newInputText resignFirstResponder];
 }
 
-#pragma mark - AddScrapViewDelegate
+#pragma mark - UITextFieldDelegate
 
-- (void)addScrapDidFinish:(NSDictionary *)scrap
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  [self.table insert:scrap];
-  [self.store sync:nil];
-  self.scraps = [self.table query:nil error:nil];
-  [self.scrapsTable reloadData];
+  [textField resignFirstResponder];
+
+  [self.table insert:@{@"text": textField.text}];
+  [self refresh];
+  [textField setText:nil];
+
+  return YES;
 }
 
 @end

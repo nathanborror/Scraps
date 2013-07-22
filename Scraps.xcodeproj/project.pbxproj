@@ -26,7 +26,7 @@
 		D85C9EE4179133C6007EC0DF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85C9EE3179133C6007EC0DF /* SystemConfiguration.framework */; };
 		D85C9EE6179133CC007EC0DF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85C9EE5179133CC007EC0DF /* QuartzCore.framework */; };
 		D85C9EE8179133DC007EC0DF /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D85C9EE7179133DC007EC0DF /* libc++.dylib */; };
-		D85C9EEB17913CE9007EC0DF /* AddScrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D85C9EEA17913CE9007EC0DF /* AddScrapViewController.m */; };
+		D8F94343179476670019E157 /* ScrapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F94342179476670019E157 /* ScrapCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,8 +64,8 @@
 		D85C9EE3179133C6007EC0DF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D85C9EE5179133CC007EC0DF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D85C9EE7179133DC007EC0DF /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		D85C9EE917913CE9007EC0DF /* AddScrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddScrapViewController.h; sourceTree = "<group>"; };
-		D85C9EEA17913CE9007EC0DF /* AddScrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddScrapViewController.m; sourceTree = "<group>"; };
+		D8F94341179476670019E157 /* ScrapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapCell.h; sourceTree = "<group>"; };
+		D8F94342179476670019E157 /* ScrapCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,12 +137,11 @@
 		D85C9EAE17913372007EC0DF /* Scraps */ = {
 			isa = PBXGroup;
 			children = (
+				D8F943401794764F0019E157 /* UI Elements */,
 				D85C9EB717913372007EC0DF /* AppDelegate.h */,
 				D85C9EB817913372007EC0DF /* AppDelegate.m */,
 				D85C9EBD17913372007EC0DF /* ScrapsViewController.h */,
 				D85C9EBE17913372007EC0DF /* ScrapsViewController.m */,
-				D85C9EE917913CE9007EC0DF /* AddScrapViewController.h */,
-				D85C9EEA17913CE9007EC0DF /* AddScrapViewController.m */,
 				D85C9EC017913372007EC0DF /* Images.xcassets */,
 				D85C9EAF17913372007EC0DF /* Supporting Files */,
 			);
@@ -176,6 +175,15 @@
 				D85C9ED017913372007EC0DF /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D8F943401794764F0019E157 /* UI Elements */ = {
+			isa = PBXGroup;
+			children = (
+				D8F94341179476670019E157 /* ScrapCell.h */,
+				D8F94342179476670019E157 /* ScrapCell.m */,
+			);
+			name = "UI Elements";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,7 +282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D85C9EEB17913CE9007EC0DF /* AddScrapViewController.m in Sources */,
+				D8F94343179476670019E157 /* ScrapCell.m in Sources */,
 				D85C9EBF17913372007EC0DF /* ScrapsViewController.m in Sources */,
 				D85C9EB917913372007EC0DF /* AppDelegate.m in Sources */,
 				D85C9EB517913372007EC0DF /* main.m in Sources */,
@@ -480,6 +488,7 @@
 				D85C9ED917913372007EC0DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D85C9EDA17913372007EC0DF /* Build configuration list for PBXNativeTarget "ScrapsTests" */ = {
 			isa = XCConfigurationList;
@@ -488,6 +497,7 @@
 				D85C9EDC17913372007EC0DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

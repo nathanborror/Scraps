@@ -16,21 +16,21 @@
 
 - (void)setUp
 {
-    [super setUp];
+  [super setUp];
     
-    // Set-up code here.
+  // Set-up code here.
 }
 
 - (void)tearDown
 {
-    // Tear-down code here.
+  // Tear-down code here.
     
-    [super tearDown];
+  [super tearDown];
 }
 
 - (void)testExample
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+  XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 
 @end
