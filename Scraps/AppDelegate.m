@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import "ScrapsViewController.h"
 
+#define DB_APP_KEY @"YOUR APP KEY"
+#define DB_APP_SECRET @"YOUR APP SECRET"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -16,7 +19,7 @@
   self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   [self.window setBackgroundColor:[UIColor whiteColor]];
 
-  DBAccountManager *accountManager = [[DBAccountManager alloc] initWithAppKey:@"kmhsm1hf4ewgxv2" secret:@"3fpjzuojeoe9cjd"];
+  DBAccountManager *accountManager = [[DBAccountManager alloc] initWithAppKey:DB_APP_KEY secret:DB_APP_SECRET];
   [DBAccountManager setSharedManager:accountManager];
 
   ScrapsViewController *viewController = [[ScrapsViewController alloc] init];
