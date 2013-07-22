@@ -40,10 +40,9 @@
   [super viewDidLoad];
 
   [self.navigationController setNavigationBarHidden:YES];
-
-//  [self setEdgesForExtendedLayout:UIExtendedEdgeNone];
   [self.view setBackgroundColor:[UIColor colorWithWhite:.85 alpha:1]];
 
+  // Scraps Table
   self.scrapsTable = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
   [self.scrapsTable setDelegate:self];
   [self.scrapsTable setDataSource:self];
@@ -51,18 +50,19 @@
   [self.scrapsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self.scrapsTable setBackgroundColor:[UIColor clearColor]];
   [self.scrapsTable setRowHeight:50];
+  [self.scrapsTable setContentInset:UIEdgeInsetsMake(50, 0, 0, 0)];
   [self.view addSubview:self.scrapsTable];
 
-  newInput = [[UIView alloc] initWithFrame:CGRectMake(0, 200, CGRectGetWidth(self.view.bounds), 50)];
-  [newInput setBackgroundColor:[UIColor whiteColor]];
+  // New Input
+  newInput = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 50)];
+  [newInput setBackgroundColor:[UIColor colorWithWhite:1 alpha:1]];
 
   newInputText = [[UITextField alloc] initWithFrame:CGRectMake(15, 10, CGRectGetWidth(newInput.bounds)-30, CGRectGetHeight(newInput.bounds)-20)];
   [newInputText setPlaceholder:@"New Scrap"];
-  [newInputText setReturnKeyType:UIReturnKeyDefault];
+  [newInputText setReturnKeyType:UIReturnKeyDone];
   [newInputText setDelegate:self];
   [newInput addSubview:newInputText];
-
-  [self.scrapsTable setTableHeaderView:newInput];
+  [self.view addSubview:newInput];
 
   [self linkDropboxAccount];
 }
@@ -109,7 +109,7 @@
   [self.store sync:nil];
   self.scraps = [self.table query:nil error:nil];
 
-  [self.scrapsTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+  [self.scrapsTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark - UITableViewDataSource
@@ -139,6 +139,10 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
   [textField resignFirstResponder];
+
+  if ([textField.text isEqualToString:@""]) {
+    return YES;
+  }
 
   [self.table insert:@{@"text": textField.text}];
   [self refresh];
