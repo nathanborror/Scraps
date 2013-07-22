@@ -6,4 +6,4 @@ It currently takes advantage of the Dropbox [Datastore API](http://www.dropbox.c
 
 ## Current mock
 
-![Current Mock](https://raw.github.com/nathanborror/Scraps/master/MOCK.png)
+<img src="https://raw.github.com/nathanborror/Scraps/master/MOCK.png" width="395">
