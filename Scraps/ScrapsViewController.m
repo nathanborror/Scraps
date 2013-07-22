@@ -43,15 +43,15 @@
   [self.view setBackgroundColor:[UIColor colorWithWhite:.85 alpha:1]];
 
   // Scraps Table
-  self.scrapsTable = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
-  [self.scrapsTable setDelegate:self];
-  [self.scrapsTable setDataSource:self];
-  [self.scrapsTable registerClass:[ScrapCell class] forCellReuseIdentifier:@"ScrapCell"];
-  [self.scrapsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-  [self.scrapsTable setBackgroundColor:[UIColor clearColor]];
-  [self.scrapsTable setRowHeight:50];
-  [self.scrapsTable setContentInset:UIEdgeInsetsMake(50, 0, 0, 0)];
-  [self.view addSubview:self.scrapsTable];
+  _scrapsTable = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
+  [_scrapsTable setDelegate:self];
+  [_scrapsTable setDataSource:self];
+  [_scrapsTable registerClass:[ScrapCell class] forCellReuseIdentifier:@"ScrapCell"];
+  [_scrapsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  [_scrapsTable setBackgroundColor:[UIColor clearColor]];
+  [_scrapsTable setRowHeight:50];
+  [_scrapsTable setContentInset:UIEdgeInsetsMake(50, 0, 0, 0)];
+  [self.view addSubview:_scrapsTable];
 
   // New Input
   newInput = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 50)];
@@ -69,8 +69,8 @@
 
 - (void)linkDropboxAccount
 {
-  self.account = [[DBAccountManager sharedManager] linkedAccount];
-  if (self.account) {
+  _account = [[DBAccountManager sharedManager] linkedAccount];
+  if (_account) {
     [self showScraps];
   } else {
     [[DBAccountManager sharedManager] linkFromController:self];
@@ -79,50 +79,50 @@
 
 - (void)showScraps
 {
-  self.store = [DBDatastore openDefaultStoreForAccount:_account error:nil];
+  _store = [DBDatastore openDefaultStoreForAccount:_account error:nil];
 
   __weak ScrapsViewController *vc = self;
-  [self.store addObserver:self block:^{
+  [_store addObserver:self block:^{
     if (vc.store.status & DBDatastoreIncoming) {
       [vc refresh];
     }
   }];
 
-  self.table = [self.store getTable:@"Scraps"];
-  self.scraps = [self.table query:nil error:nil];
-  [self.scrapsTable reloadData];
+  _table = [_store getTable:@"Scraps"];
+  _scraps = [_table query:nil error:nil];
+  [_scrapsTable reloadData];
 }
 
 - (void)refresh
 {
-  [self.store sync:nil];
-  self.scraps = [self.table query:nil error:nil];
-  [self.scrapsTable reloadData];
+  [_store sync:nil];
+  _scraps = [_table query:nil error:nil];
+  [_scrapsTable reloadData];
 }
 
 - (void)receiveTrashNotification:(NSNotification *)notification
 {
   NSIndexPath *indexPath = notification.object;
 
-  DBRecord *result = [self.scraps objectAtIndex:indexPath.row];
+  DBRecord *result = [_scraps objectAtIndex:indexPath.row];
   [result deleteRecord];
-  [self.store sync:nil];
-  self.scraps = [self.table query:nil error:nil];
+  [_store sync:nil];
+  _scraps = [_table query:nil error:nil];
 
-  [self.scrapsTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+  [_scrapsTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return self.scraps.count;
+  return _scraps.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   ScrapCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ScrapCell"];
-  DBRecord *result = [self.scraps objectAtIndex:indexPath.row];
+  DBRecord *result = [_scraps objectAtIndex:indexPath.row];
   [cell.textLabel setText:result.fields[@"text"]];
   return cell;
 }
@@ -144,7 +144,7 @@
     return YES;
   }
 
-  [self.table insert:@{@"text": textField.text}];
+  [_table insert:@{@"text": textField.text}];
   [self refresh];
   [textField setText:nil];
 
