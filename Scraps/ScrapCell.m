@@ -43,6 +43,7 @@ static const CGFloat kDividerHeight = .5;
 
     divider = [[UIView alloc] initWithFrame:CGRectMake(1, CGRectGetMaxY(self.bounds)-kDividerHeight, CGRectGetWidth(self.bounds), kDividerHeight)];
     [divider setBackgroundColor:[UIColor colorWithWhite:1 alpha:.2]];
+    [divider setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [self addSubview:divider];
 
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
