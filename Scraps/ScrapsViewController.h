@@ -7,7 +7,7 @@
 //
 
 @import UIKit;
-#import <Dropbox/Dropbox.h>
+#import <Parse/Parse.h>
 
 @interface ScrapsViewController : UIViewController
 

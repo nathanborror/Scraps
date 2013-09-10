@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D843F5FB17DF0A5200F50B10 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D843F5FA17DF0A5200F50B10 /* Parse.framework */; };
+		D843F5FD17DF0B2F00F50B10 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D843F5FC17DF0B2F00F50B10 /* StoreKit.framework */; };
+		D843F5FF17DF0B3600F50B10 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D843F5FE17DF0B3600F50B10 /* MobileCoreServices.framework */; };
+		D843F60117DF0B3E00F50B10 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D843F60017DF0B3E00F50B10 /* libz.1.1.3.dylib */; };
+		D843F60317DF0B4700F50B10 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D843F60217DF0B4700F50B10 /* CoreLocation.framework */; };
+		D843F60517DF0B5100F50B10 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D843F60417DF0B5100F50B10 /* AudioToolbox.framework */; };
 		D85C9EA917913372007EC0DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85C9EA817913372007EC0DF /* Foundation.framework */; };
 		D85C9EAB17913372007EC0DF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85C9EAA17913372007EC0DF /* CoreGraphics.framework */; };
 		D85C9EAD17913372007EC0DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85C9EAC17913372007EC0DF /* UIKit.framework */; };
@@ -15,17 +21,14 @@
 		D85C9EB917913372007EC0DF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D85C9EB817913372007EC0DF /* AppDelegate.m */; };
 		D85C9EBF17913372007EC0DF /* ScrapsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D85C9EBE17913372007EC0DF /* ScrapsViewController.m */; };
 		D85C9EC117913372007EC0DF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D85C9EC017913372007EC0DF /* Images.xcassets */; };
-		D85C9EC817913372007EC0DF /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85C9EC717913372007EC0DF /* XCTest.framework */; };
 		D85C9EC917913372007EC0DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85C9EA817913372007EC0DF /* Foundation.framework */; };
 		D85C9ECA17913372007EC0DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85C9EAC17913372007EC0DF /* UIKit.framework */; };
 		D85C9ED217913372007EC0DF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D85C9ED017913372007EC0DF /* InfoPlist.strings */; };
 		D85C9ED417913372007EC0DF /* ScrapsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D85C9ED317913372007EC0DF /* ScrapsTests.m */; };
-		D85C9EDE1791339B007EC0DF /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85C9EDD1791339B007EC0DF /* Dropbox.framework */; };
 		D85C9EE0179133B5007EC0DF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85C9EDF179133B5007EC0DF /* CFNetwork.framework */; };
 		D85C9EE2179133BB007EC0DF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85C9EE1179133BB007EC0DF /* Security.framework */; };
 		D85C9EE4179133C6007EC0DF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85C9EE3179133C6007EC0DF /* SystemConfiguration.framework */; };
 		D85C9EE6179133CC007EC0DF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85C9EE5179133CC007EC0DF /* QuartzCore.framework */; };
-		D85C9EE8179133DC007EC0DF /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D85C9EE7179133DC007EC0DF /* libc++.dylib */; };
 		D8F94343179476670019E157 /* ScrapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F94342179476670019E157 /* ScrapCell.m */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +43,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D843F5FA17DF0A5200F50B10 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		D843F5FC17DF0B2F00F50B10 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		D843F5FE17DF0B3600F50B10 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		D843F60017DF0B3E00F50B10 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
+		D843F60217DF0B4700F50B10 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		D843F60417DF0B5100F50B10 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D85C9EA517913372007EC0DF /* Scraps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scraps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D85C9EA817913372007EC0DF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D85C9EAA17913372007EC0DF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -54,16 +63,13 @@
 		D85C9EBE17913372007EC0DF /* ScrapsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrapsViewController.m; sourceTree = "<group>"; };
 		D85C9EC017913372007EC0DF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D85C9EC617913372007EC0DF /* ScrapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScrapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D85C9EC717913372007EC0DF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D85C9ECF17913372007EC0DF /* ScrapsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ScrapsTests-Info.plist"; sourceTree = "<group>"; };
 		D85C9ED117913372007EC0DF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D85C9ED317913372007EC0DF /* ScrapsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrapsTests.m; sourceTree = "<group>"; };
-		D85C9EDD1791339B007EC0DF /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
 		D85C9EDF179133B5007EC0DF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		D85C9EE1179133BB007EC0DF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D85C9EE3179133C6007EC0DF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D85C9EE5179133CC007EC0DF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		D85C9EE7179133DC007EC0DF /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		D8F94341179476670019E157 /* ScrapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapCell.h; sourceTree = "<group>"; };
 		D8F94342179476670019E157 /* ScrapCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,15 +79,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D85C9EE8179133DC007EC0DF /* libc++.dylib in Frameworks */,
+				D843F60517DF0B5100F50B10 /* AudioToolbox.framework in Frameworks */,
+				D843F60317DF0B4700F50B10 /* CoreLocation.framework in Frameworks */,
+				D843F60117DF0B3E00F50B10 /* libz.1.1.3.dylib in Frameworks */,
+				D843F5FF17DF0B3600F50B10 /* MobileCoreServices.framework in Frameworks */,
+				D843F5FD17DF0B2F00F50B10 /* StoreKit.framework in Frameworks */,
 				D85C9EE6179133CC007EC0DF /* QuartzCore.framework in Frameworks */,
 				D85C9EE4179133C6007EC0DF /* SystemConfiguration.framework in Frameworks */,
 				D85C9EE2179133BB007EC0DF /* Security.framework in Frameworks */,
 				D85C9EE0179133B5007EC0DF /* CFNetwork.framework in Frameworks */,
 				D85C9EAB17913372007EC0DF /* CoreGraphics.framework in Frameworks */,
 				D85C9EAD17913372007EC0DF /* UIKit.framework in Frameworks */,
+				D843F5FB17DF0A5200F50B10 /* Parse.framework in Frameworks */,
 				D85C9EA917913372007EC0DF /* Foundation.framework in Frameworks */,
-				D85C9EDE1791339B007EC0DF /* Dropbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,7 +99,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D85C9EC817913372007EC0DF /* XCTest.framework in Frameworks */,
 				D85C9ECA17913372007EC0DF /* UIKit.framework in Frameworks */,
 				D85C9EC917913372007EC0DF /* Foundation.framework in Frameworks */,
 			);
@@ -120,16 +129,19 @@
 		D85C9EA717913372007EC0DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D85C9EE7179133DC007EC0DF /* libc++.dylib */,
+				D843F60417DF0B5100F50B10 /* AudioToolbox.framework */,
+				D843F60217DF0B4700F50B10 /* CoreLocation.framework */,
+				D843F60017DF0B3E00F50B10 /* libz.1.1.3.dylib */,
+				D843F5FE17DF0B3600F50B10 /* MobileCoreServices.framework */,
+				D843F5FC17DF0B2F00F50B10 /* StoreKit.framework */,
+				D843F5FA17DF0A5200F50B10 /* Parse.framework */,
 				D85C9EE5179133CC007EC0DF /* QuartzCore.framework */,
 				D85C9EE3179133C6007EC0DF /* SystemConfiguration.framework */,
 				D85C9EE1179133BB007EC0DF /* Security.framework */,
 				D85C9EDF179133B5007EC0DF /* CFNetwork.framework */,
-				D85C9EDD1791339B007EC0DF /* Dropbox.framework */,
 				D85C9EA817913372007EC0DF /* Foundation.framework */,
 				D85C9EAA17913372007EC0DF /* CoreGraphics.framework */,
 				D85C9EAC17913372007EC0DF /* UIKit.framework */,
-				D85C9EC717913372007EC0DF /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -403,6 +415,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
+					/Users/nathan/Dropbox/Work/Personal/Scraps,
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Scraps/Scraps-Prefix.pch";
@@ -422,6 +436,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
+					/Users/nathan/Dropbox/Work/Personal/Scraps,
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Scraps/Scraps-Prefix.pch";

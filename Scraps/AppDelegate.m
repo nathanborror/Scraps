@@ -19,8 +19,9 @@
   self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   [self.window setBackgroundColor:[UIColor whiteColor]];
 
-  DBAccountManager *accountManager = [[DBAccountManager alloc] initWithAppKey:DB_APP_KEY secret:DB_APP_SECRET];
-  [DBAccountManager setSharedManager:accountManager];
+  [Parse setApplicationId:@"YOUR_PARSE_APP_ID"
+                clientKey:@"YOUR_PARSE_CLIENT_KEY"];
+  [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
   ScrapsViewController *viewController = [[ScrapsViewController alloc] init];
   UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
@@ -29,15 +30,6 @@
   [self.window makeKeyAndVisible];
 
   return YES;
-}
-
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
-  DBAccount *account = [[DBAccountManager sharedManager] handleOpenURL:url];
-  if (account) {
-    return YES;
-  }
-  return NO;
 }
 
 @end

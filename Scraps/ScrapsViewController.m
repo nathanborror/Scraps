@@ -11,10 +11,7 @@
 
 @interface ScrapsViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UITextFieldDelegate, ScrapCellDelegate>
 
-@property (nonatomic, retain) DBAccount *account;
-@property (nonatomic, retain) DBDatastore *store;
-@property (nonatomic, retain) DBTable *table;
-@property (nonatomic, retain) NSArray *scraps;
+@property (nonatomic, retain) NSMutableArray *scraps;
 @property (nonatomic, retain) UITableView *scrapsTable;
 
 @end
@@ -55,40 +52,16 @@
   [_newInput addSubview:_newInputText];
   [self.view addSubview:_newInput];
 
-  [self linkDropboxAccount];
-}
-
-- (void)linkDropboxAccount
-{
-  _account = [[DBAccountManager sharedManager] linkedAccount];
-  if (_account) {
-    [self showScraps];
-  } else {
-    [[DBAccountManager sharedManager] linkFromController:self];
-  }
-}
-
-- (void)showScraps
-{
-  _store = [DBDatastore openDefaultStoreForAccount:_account error:nil];
-
-  __weak ScrapsViewController *vc = self;
-  [_store addObserver:self block:^{
-    if (vc.store.status & DBDatastoreIncoming) {
-      [vc refresh];
-    }
-  }];
-
-  _table = [_store getTable:@"Scraps"];
-  _scraps = [_table query:nil error:nil];
-  [_scrapsTable reloadData];
+  [self refresh];
 }
 
 - (void)refresh
 {
-  [_store sync:nil];
-  _scraps = [_table query:nil error:nil];
-  [_scrapsTable reloadData];
+  PFQuery *query = [PFQuery queryWithClassName:@"Scrap"];
+  [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    _scraps = objects;
+    [_scrapsTable reloadData];
+  }];
 }
 
 #pragma mark - UITableViewDataSource
@@ -101,8 +74,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   ScrapCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ScrapCell"];
-  DBRecord *result = [_scraps objectAtIndex:indexPath.row];
-  [cell.textLabel setText:result.fields[@"text"]];
+  PFObject *result = [_scraps objectAtIndex:indexPath.row];
+  [cell.textLabel setText:[result objectForKey:@"text"]];
   [cell setDelegate:self];
   return cell;
 }
@@ -124,7 +97,10 @@
     return YES;
   }
 
-  [_table insert:@{@"text": textField.text}];
+  PFObject *scrap = [PFObject objectWithClassName:@"Scrap"];
+  [scrap setObject:textField.text forKey:@"text"];
+  [scrap save];
+
   [self refresh];
   [textField setText:nil];
 
@@ -137,10 +113,9 @@
 {
   NSIndexPath *indexPath = [_scrapsTable indexPathForCell:cell];
 
-  DBRecord *result = [_scraps objectAtIndex:indexPath.row];
-  [result deleteRecord];
-  [_store sync:nil];
-  _scraps = [_table query:nil error:nil];
+  PFObject *scrap = [_scraps objectAtIndex:indexPath.row];
+  [scrap deleteInBackground];
+  [_scraps removeObjectIdenticalTo:scrap];
 
   [_scrapsTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
