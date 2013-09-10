@@ -9,6 +9,16 @@
 @import UIKit;
 @import QuartzCore;
 
-@interface ScrapCell : UITableViewCell <UIGestureRecognizerDelegate>
+@protocol ScrapCellDelegate;
+
+@interface ScrapCell : UITableViewCell
+
+@property (nonatomic, weak) id<ScrapCellDelegate> delegate;
+
+@end
+
+@protocol ScrapCellDelegate <NSObject>
+
+- (void)scrapRemoved:(ScrapCell *)cell;
 
 @end

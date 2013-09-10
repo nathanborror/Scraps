@@ -9,6 +9,6 @@
 @import UIKit;
 #import <Dropbox/Dropbox.h>
 
-@interface ScrapsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UITextFieldDelegate>
+@interface ScrapsViewController : UIViewController
 
 @end

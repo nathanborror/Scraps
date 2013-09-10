@@ -9,13 +9,7 @@
 #import "ScrapsViewController.h"
 #import "ScrapCell.h"
 
-@interface ScrapsViewController () {
-  BOOL pullDownInProgress;
-  ScrapCell *placeholderCell;
-
-  UITextField *newInputText;
-  UIView *newInput;
-}
+@interface ScrapsViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UITextFieldDelegate, ScrapCellDelegate>
 
 @property (nonatomic, retain) DBAccount *account;
 @property (nonatomic, retain) DBDatastore *store;
@@ -25,14 +19,11 @@
 
 @end
 
-@implementation ScrapsViewController
-
-- (id)init
-{
-  if (self = [super init]) {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTrashNotification:) name:@"TrashNotification" object:nil];
-  }
-  return self;
+@implementation ScrapsViewController {
+  BOOL _pullDownInProgress;
+  ScrapCell *_placeholderCell;
+  UITextField *_newInputText;
+  UIView *_newInput;
 }
 
 - (void)viewDidLoad
@@ -54,15 +45,15 @@
   [self.view addSubview:_scrapsTable];
 
   // New Input
-  newInput = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 50)];
-  [newInput setBackgroundColor:[UIColor colorWithWhite:1 alpha:1]];
+  _newInput = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 50)];
+  [_newInput setBackgroundColor:[UIColor colorWithWhite:1 alpha:1]];
 
-  newInputText = [[UITextField alloc] initWithFrame:CGRectMake(15, 10, CGRectGetWidth(newInput.bounds)-30, CGRectGetHeight(newInput.bounds)-20)];
-  [newInputText setPlaceholder:@"New Scrap"];
-  [newInputText setReturnKeyType:UIReturnKeyDone];
-  [newInputText setDelegate:self];
-  [newInput addSubview:newInputText];
-  [self.view addSubview:newInput];
+  _newInputText = [[UITextField alloc] initWithFrame:CGRectMake(15, 10, CGRectGetWidth(_newInput.bounds)-30, CGRectGetHeight(_newInput.bounds)-20)];
+  [_newInputText setPlaceholder:@"New Scrap"];
+  [_newInputText setReturnKeyType:UIReturnKeyDone];
+  [_newInputText setDelegate:self];
+  [_newInput addSubview:_newInputText];
+  [self.view addSubview:_newInput];
 
   [self linkDropboxAccount];
 }
@@ -100,18 +91,6 @@
   [_scrapsTable reloadData];
 }
 
-- (void)receiveTrashNotification:(NSNotification *)notification
-{
-  NSIndexPath *indexPath = notification.object;
-
-  DBRecord *result = [_scraps objectAtIndex:indexPath.row];
-  [result deleteRecord];
-  [_store sync:nil];
-  _scraps = [_table query:nil error:nil];
-
-  [_scrapsTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-}
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -124,6 +103,7 @@
   ScrapCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ScrapCell"];
   DBRecord *result = [_scraps objectAtIndex:indexPath.row];
   [cell.textLabel setText:result.fields[@"text"]];
+  [cell setDelegate:self];
   return cell;
 }
 
@@ -131,7 +111,7 @@
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-  [newInputText resignFirstResponder];
+  [_newInputText resignFirstResponder];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -149,6 +129,20 @@
   [textField setText:nil];
 
   return YES;
+}
+
+#pragma mark - ScrapCellDelegate
+
+- (void)scrapRemoved:(ScrapCell *)cell
+{
+  NSIndexPath *indexPath = [_scrapsTable indexPathForCell:cell];
+
+  DBRecord *result = [_scraps objectAtIndex:indexPath.row];
+  [result deleteRecord];
+  [_store sync:nil];
+  _scraps = [_table query:nil error:nil];
+
+  [_scrapsTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 @end

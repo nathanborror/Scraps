@@ -16,42 +16,44 @@ static const CGFloat kFeelinLuckyThreshold = 140.0;
 static const CGFloat kTrashThreshold = -80.0;
 static const CGFloat kDividerHeight = .5;
 
+@interface ScrapCell () <UIGestureRecognizerDelegate>
+@end
+
 @implementation ScrapCell {
-  UIView *divider;
-  UIImageView *spyglass;
-  UIImageView *trash;
-  CGPoint beginSwipePosition;
-  UIDynamicAnimator *animator;
+  UIView *_divider;
+  UIImageView *_spyglass;
+  UIImageView *_trash;
+  CGPoint _beginSwipePosition;
+  UIDynamicAnimator *_animator;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-  self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-  if (self) {
+  if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
     [self setBackgroundColor:BLUE];
     [self.textLabel setTextColor:[UIColor whiteColor]];
 
-    spyglass = [[UIImageView alloc] initWithFrame:CGRectMake(-CGRectGetHeight(self.bounds), 0, CGRectGetHeight(self.bounds), CGRectGetHeight(self.bounds))];
-    [spyglass setImage:[UIImage imageNamed:@"Spyglass"]];
-    [spyglass setContentMode:UIViewContentModeCenter];
-    [self addSubview:spyglass];
+    _spyglass = [[UIImageView alloc] initWithFrame:CGRectMake(-CGRectGetHeight(self.bounds), 0, CGRectGetHeight(self.bounds), CGRectGetHeight(self.bounds))];
+    [_spyglass setImage:[UIImage imageNamed:@"Spyglass"]];
+    [_spyglass setContentMode:UIViewContentModeCenter];
+    [self addSubview:_spyglass];
 
-    trash = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds), 0, CGRectGetHeight(self.bounds), CGRectGetHeight(self.bounds))];
-    [trash setImage:[UIImage imageNamed:@"Remove"]];
-    [trash setContentMode:UIViewContentModeCenter];
-    [self addSubview:trash];
+    _trash = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds), 0, CGRectGetHeight(self.bounds), CGRectGetHeight(self.bounds))];
+    [_trash setImage:[UIImage imageNamed:@"Remove"]];
+    [_trash setContentMode:UIViewContentModeCenter];
+    [self addSubview:_trash];
 
-    divider = [[UIView alloc] initWithFrame:CGRectMake(1, CGRectGetMaxY(self.bounds)-kDividerHeight, CGRectGetWidth(self.bounds), kDividerHeight)];
-    [divider setBackgroundColor:[UIColor colorWithWhite:1 alpha:.2]];
-    [divider setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-    [self addSubview:divider];
+    _divider = [[UIView alloc] initWithFrame:CGRectMake(1, CGRectGetMaxY(self.bounds)-kDividerHeight, CGRectGetWidth(self.bounds), kDividerHeight)];
+    [_divider setBackgroundColor:[UIColor colorWithWhite:1 alpha:.2]];
+    [_divider setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [self addSubview:_divider];
 
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
     [pan setDelegate:self];
     [pan setMaximumNumberOfTouches:1];
     [self addGestureRecognizer:pan];
 
-    animator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
+    _animator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
   }
   return self;
 }
@@ -59,9 +61,9 @@ static const CGFloat kDividerHeight = .5;
 - (void)layoutSubviews
 {
   [super layoutSubviews];
-  [divider setFrame:CGRectOffset(divider.bounds, 1, CGRectGetMaxY(self.bounds)-kDividerHeight)];
-  [spyglass setFrame:CGRectMake(-CGRectGetHeight(self.bounds), 0, CGRectGetHeight(self.bounds), CGRectGetHeight(self.bounds))];
-  [trash setFrame:CGRectMake(CGRectGetWidth(self.bounds), 0, CGRectGetHeight(self.bounds), CGRectGetHeight(self.bounds))];
+  [_divider setFrame:CGRectOffset(_divider.bounds, 1, CGRectGetMaxY(self.bounds)-kDividerHeight)];
+  [_spyglass setFrame:CGRectMake(-CGRectGetHeight(self.bounds), 0, CGRectGetHeight(self.bounds), CGRectGetHeight(self.bounds))];
+  [_trash setFrame:CGRectMake(CGRectGetWidth(self.bounds), 0, CGRectGetHeight(self.bounds), CGRectGetHeight(self.bounds))];
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
@@ -81,32 +83,32 @@ static const CGFloat kDividerHeight = .5;
   CGPoint current = [recognizer locationInView:self.superview];
   
   if (recognizer.state == UIGestureRecognizerStateBegan) {
-    beginSwipePosition = current;
+    _beginSwipePosition = current;
   }
 
   if (recognizer.state == UIGestureRecognizerStateChanged) {
-    CGFloat xPosition = current.x - beginSwipePosition.x;
+    CGFloat xPosition = current.x - _beginSwipePosition.x;
     [self setFrame:CGRectOffset(self.bounds, xPosition, self.frame.origin.y)];
 
     // Search gesture
     if (xPosition > kFeelinLuckyThreshold) {
-      [spyglass setImage:[UIImage imageNamed:@"SpyglassStarHighlighted"]];
+      [_spyglass setImage:[UIImage imageNamed:@"SpyglassStarHighlighted"]];
     } else if (xPosition > kSearchThreshold) {
-      [spyglass setImage:[UIImage imageNamed:@"SpyglassHighlighted"]];
+      [_spyglass setImage:[UIImage imageNamed:@"SpyglassHighlighted"]];
     } else {
-      [spyglass setImage:[UIImage imageNamed:@"Spyglass"]];
+      [_spyglass setImage:[UIImage imageNamed:@"Spyglass"]];
     }
 
     // Trash gesture
     if (xPosition < kTrashThreshold) {
-      [trash setImage:[UIImage imageNamed:@"RemoveHighlighted"]];
+      [_trash setImage:[UIImage imageNamed:@"RemoveHighlighted"]];
     } else {
-      [trash setImage:[UIImage imageNamed:@"Remove"]];
+      [_trash setImage:[UIImage imageNamed:@"Remove"]];
     }
   }
 
   if (recognizer.state == UIGestureRecognizerStateEnded) {
-    CGFloat xPosition = current.x - beginSwipePosition.x;
+    CGFloat xPosition = current.x - _beginSwipePosition.x;
 
     if (xPosition > kSearchThreshold) {
       // Perform search with cell contents
@@ -116,14 +118,20 @@ static const CGFloat kDividerHeight = .5;
         urlString = [NSString stringWithFormat:@"%@+site:wikipedia.org", urlString];
       }
       [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+
+      [UIView animateWithDuration:.8 delay:0 usingSpringWithDamping:.6 initialSpringVelocity:.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self setFrame:CGRectOffset(self.bounds, 0, self.frame.origin.y)];
+      } completion:nil];
     } else if (xPosition < kTrashThreshold) {
       // Trash cell
       [UIView animateWithDuration:.3 animations:^{
         [self setFrame:CGRectOffset(self.bounds, -(CGRectGetWidth(self.bounds)), self.frame.origin.y)];
         [self setAlpha:0];
       } completion:^(BOOL finished) {
-        NSIndexPath *indexPath = [(UITableView *)self.superview indexPathForCell:self];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"TrashNotification" object:indexPath];
+        [self setHidden:YES];
+        if (_delegate) {
+          [_delegate scrapRemoved:self];
+        }
       }];
     } else {
       // Return to resting place
