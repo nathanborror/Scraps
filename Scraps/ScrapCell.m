@@ -32,6 +32,7 @@ static const CGFloat kDividerHeight = .5;
   if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
     [self setBackgroundColor:BLUE];
     [self.textLabel setTextColor:[UIColor whiteColor]];
+    [self.contentView.superview setClipsToBounds:NO]; // view heirarchy changed in iOS7
 
     _spyglass = [[UIImageView alloc] initWithFrame:CGRectMake(-CGRectGetHeight(self.bounds), 0, CGRectGetHeight(self.bounds), CGRectGetHeight(self.bounds))];
     [_spyglass setImage:[UIImage imageNamed:@"Spyglass"]];
